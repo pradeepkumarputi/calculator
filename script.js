@@ -1,21 +1,27 @@
-let result = document.getElementById('result');
-let calculation = '';
+let input = document.getElementById('inputBox');
+let buttons = document.querySelectorAll('button');
 
-function appendToResult(value) {
-    calculation += value;
-    result.value = calculation;
-}
+let string = "";
+let arr = Array.from(buttons);
+arr.forEach(button => {
+    button.addEventListener('click', (e) =>{
+        if(e.target.innerHTML == '='){
+            string = eval(string);
+            input.value = string;
+        }
 
-function calculateResult() {
-    try {
-        calculation = eval(calculation);
-        result.value = calculation;
-    } catch (error) {
-        result.value = 'Error';
-    }
-}
-
-function clearResult() {
-    calculation = '';
-    result.value = '';
-}
+        else if(e.target.innerHTML == 'AC'){
+            string = "";
+            input.value = string;
+        }
+        else if(e.target.innerHTML == 'DEL'){
+            string = string.substring(0, string.length-1);
+            input.value = string;
+        }
+        else{
+            string += e.target.innerHTML;
+            input.value = string;
+        }
+        
+    })
+})
